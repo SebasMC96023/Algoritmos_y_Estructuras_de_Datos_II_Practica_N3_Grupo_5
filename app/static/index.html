@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cine · API asíncrona</title>
+<link rel="stylesheet" href="/static/css/style.css"></head><body>
+<header><h1>🎬 Preventa de boletos</h1><span>Demo de API asíncrona · 202 Accepted + polling + timeout</span></header>
+<main>
+<section>
+ <div class="card"><h2>Sala · haz clic en un asiento libre para comprar</h2>
+  <div class="screen"></div><div class="seats" id="seats"></div>
+  <div class="legend"><span><i style="background:var(--free)"></i>Libre</span><span><i style="background:var(--res)"></i>Reservado (pagando)</span><span><i style="background:var(--occ)"></i>Ocupado</span><span><i style="background:var(--info)"></i>Cliente esperando (síncrono)</span></div>
+ </div>
+ <div class="card" style="margin-top:18px"><h2>Registro de lo que ve el cliente</h2><div id="log"></div></div>
+</section>
+<section>
+ <div class="card"><h2>1 · Modo de compra</h2>
+  <div class="modes"><button id="m-async" class="on"><b>Asíncrono</b><small>202 al instante + polling</small></button>
+  <button id="m-sync"><b>Síncrono</b><small>el cliente espera todo el cobro</small></button></div>
+  <div class="big" style="margin-top:12px"><div><b id="tResp">—</b><span>tiempo hasta la respuesta</span></div><div><b id="tTotal">—</b><span>tiempo hasta terminar</span></div></div>
+ </div>
+ <div class="card" style="margin-top:18px"><h2>2 · Escenarios</h2>
+  <div class="row" style="margin-top:0">
+   <button id="b-same">👥 5 clientes, mismo asiento</button>
+   <button id="b-diff">⚡ 5 asientos a la vez</button>
+   <button id="b-reset">↺ Reiniciar</button></div>
+  <label>Tiempo que tarda el banco <b id="vPago"></b></label><input type="range" id="rPago" min="1" max="20" step="1">
+  <label>Timeout (paciencia máxima) <b id="vTo"></b></label><input type="range" id="rTo" min="1" max="20" step="1">
+  <div class="hint" id="hint"></div>
+ </div>
+ <div class="card" style="margin-top:18px"><h2>3 · Compras en el servidor (se actualiza solo)</h2><div id="compras"><span class="hint">Aún no hay compras.</span></div></div>
+</section>
+</main>
+<script src="/static/js/app.js"></script></body></html>

@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      PAGO_SEGUNDOS: "${PAGO_SEGUNDOS:-3}"
+      TIMEOUT_SEGUNDOS: "10"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/asientos')"]
+      interval: 2s
+      retries: 15
+
+  demo:                        # cliente que ejecuta el guion de la demostración
+    build: { context: ., dockerfile: Dockerfile.demo }
+    profiles: ["demo"]
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      api: { condition: service_healthy }

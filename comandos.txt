@@ -1,0 +1,83 @@
+dos · TXT
+============================================================
+ API ASINCRONA - PREVENTA DE BOLETOS  |  COMANDOS DEFINITIVOS
+============================================================
+Abrir la terminal DENTRO de la carpeta del proyecto
+(la que contiene docker-compose.yml y la carpeta app).
+ 
+ 
+------------------------------------------------------------
+ OPCION A: CON DOCKER (recomendada)
+ Requisito: Docker Desktop abierto
+------------------------------------------------------------
+ 
+1) Levantar el proyecto:
+ 
+   docker compose up --build -d api
+ 
+2) Abrir en el navegador:
+ 
+   http://localhost:8000/        -> pantalla visual
+   http://localhost:8000/docs    -> documentacion de la API
+ 
+3) (Opcional) Demo por consola:
+ 
+   docker compose run --rm demo
+ 
+4) Ver los logs del servidor en vivo (Ctrl+C para salir):
+ 
+   docker compose logs -f api
+ 
+5) Apagar el proyecto al terminar:
+ 
+   docker compose down
+ 
+ 
+------------------------------------------------------------
+ OPCION B: SOLO CON PYTHON (sin Docker)
+ Requisito: Python 3.10 o superior
+------------------------------------------------------------
+ 
+1) Instalar dependencias (una sola vez):
+ 
+   pip install -r requirements.txt httpx
+ 
+2) Levantar el servidor (dejar esta terminal abierta):
+ 
+   python -m uvicorn app.main:app --port 8000
+ 
+3) Abrir en el navegador:
+ 
+   http://localhost:8000/
+ 
+4) (Opcional) Demo por consola, en una SEGUNDA terminal:
+ 
+   python demo.py
+ 
+5) Apagar: Ctrl+C en la terminal del servidor.
+ 
+ 
+------------------------------------------------------------
+ PRUEBA DE TIMEOUT
+------------------------------------------------------------
+En la pantalla: subir el slider "Tiempo que tarda el banco"
+a un valor mayor que el slider "Timeout" y comprar un asiento.
+ 
+Por consola (Docker, PowerShell):
+ 
+   $env:PAGO_SEGUNDOS="15"; docker compose up -d --force-recreate api
+ 
+Volver a la normalidad:
+ 
+   $env:PAGO_SEGUNDOS="3"; docker compose up -d --force-recreate api
+ 
+ 
+------------------------------------------------------------
+ PROBLEMAS FRECUENTES
+------------------------------------------------------------
+- "uvicorn no se reconoce": usar  python -m uvicorn ...  (ya incluido arriba).
+- Puerto 8000 ocupado: ejecutar  docker compose down  o cerrar el servidor
+  de Python; solo uno puede usar el puerto a la vez.
+- La pagina se ve sin estilos o desactualizada: Ctrl+F5.
+- Cambios en el codigo con Docker: repetir  docker compose up --build -d api
+ 
